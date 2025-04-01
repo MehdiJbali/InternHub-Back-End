@@ -1,6 +1,7 @@
 
 package ma.ensa.internHub.services.impl;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,16 @@ public class StudentServiceImpl implements StudentService {
         return studentMapper.toResponse(student);
     }
 
+    @Override
+    public StudentResponse getStudentById(UUID id) {
+        return studentMapper.toResponse(studentRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Student not found")));
+    }
+
+    @Override
+    public StudentResponse getStudentByEmail(String email) {
+        return studentMapper.toResponse(studentRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Student not found")));
+    }
+
 
     @Override
     public long countStudents() {
@@ -49,6 +60,14 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll().stream()
                 .map(studentMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentResponse updateStudentById(UUID id, StudentRequest request) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Student not found"));
+        studentMapper.updateFromRequest(request, student);
+        studentRepository.save(student);
+        return studentMapper.toResponse(student);
     }
 
     @Override

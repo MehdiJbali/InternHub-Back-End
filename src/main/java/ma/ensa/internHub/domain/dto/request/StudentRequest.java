@@ -32,5 +32,9 @@ public class StudentRequest {
     private String password;
 
     @ValidImageUrl
-    private String profilePicture;
+    private String profileImage;
+
+    private String school;
+    @Size(message = "Title should be at most 30 characters", max = 30)
+    private String title;
 }

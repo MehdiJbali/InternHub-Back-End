@@ -17,6 +17,8 @@ public class StudentResponse {
     private String firstName;
     private String lastName;
     private String email;
-    private String profilePicture;
-    private LocalDateTime createdAt;
+    private String profileImage;
+    private String role;
+    private String school;
+    private String title;
 }

@@ -9,8 +9,11 @@ import java.util.UUID;
 public interface StudentService {
     StudentResponse createStudent(StudentRequest request);
 
+    StudentResponse getStudentById(UUID id);
+    StudentResponse getStudentByEmail(String email);
     long countStudents();
     List<StudentResponse> getAllStudents();
+    StudentResponse updateStudentById(UUID id, StudentRequest request);
     void deleteStudentById(UUID id);
 
 }

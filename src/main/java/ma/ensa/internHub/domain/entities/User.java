@@ -18,6 +18,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import ma.ensa.internHub.validation.Phone;
+import ma.ensa.internHub.validation.ValidImageUrl;
+
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -38,4 +41,14 @@ public abstract class User extends BaseEntity implements Serializable {
     @NotBlank(message = "Password is required")
     @Size(min = 8, message = "Password should be at least 8 characters")
     private String password;
+
+    @Phone(message = "Phone number must be a valid Moroccan number starting with 05 or 06 or 07")
+    private String phone;
+
+    private String address;
+    
+    @ValidImageUrl
+    private String profileImage;
+    
+    private String infos;
 }

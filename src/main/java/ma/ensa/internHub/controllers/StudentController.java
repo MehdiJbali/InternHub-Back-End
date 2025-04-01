@@ -1,12 +1,21 @@
 package ma.ensa.internHub.controllers;
 
-import org.springframework.web.bind.annotation.*;
-import lombok.RequiredArgsConstructor;
-import ma.ensa.internHub.domain.dto.response.StudentResponse;
-import ma.ensa.internHub.services.StudentService;
-
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+import ma.ensa.internHub.domain.dto.request.StudentRequest;
+import ma.ensa.internHub.domain.dto.response.StudentResponse;
+import ma.ensa.internHub.services.StudentService;
 
 
 @RestController
@@ -17,17 +26,33 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping("/count")
-    public long getTotalStudents() {
-        return studentService.countStudents();
+    public ResponseEntity<Long> getTotalStudents() {
+        return ResponseEntity.ok(studentService.countStudents());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentResponse> getStudentById(@PathVariable UUID id) {
+        return ResponseEntity.ok(studentService.getStudentById(id));
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<StudentResponse> getStudentByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(studentService.getStudentByEmail(email));
     }
 
     @GetMapping
-    public List<StudentResponse> getAllStudents() {
-        return studentService.getAllStudents();
+    public ResponseEntity<List<StudentResponse>> getAllStudents() {
+        return ResponseEntity.ok(studentService.getAllStudents());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentResponse> updateStudent(@PathVariable UUID id, @RequestBody StudentRequest request) {
+        return ResponseEntity.ok(studentService.updateStudentById(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudentById(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable UUID id) {
         studentService.deleteStudentById(id);
+        return ResponseEntity.noContent().build();
     }
 }

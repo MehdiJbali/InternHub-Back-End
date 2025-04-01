@@ -41,7 +41,7 @@ public class ValidImageUrlValidator implements ConstraintValidator<ValidImageUrl
                     contentType.startsWith("image/") &&
                     contentLength > 0 &&
                     contentLength <= maxFileSize;
-
+        
         } catch (Exception e) {
             return false;
         }

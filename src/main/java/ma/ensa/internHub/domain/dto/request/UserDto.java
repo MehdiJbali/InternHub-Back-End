@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 public class UserDto {
     private UUID id;
     private String email;
-    private String profilePicture;
     private String role;
+    private String phone;
+    private String address;
+    private String profileImage;
+    private String infos;
 }
