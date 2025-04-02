@@ -70,4 +70,5 @@ public class Internship {
     private boolean negotiable;
     private boolean remunerated;
 
+    private boolean active; // New attribute to indicate if the internship is active
 }
